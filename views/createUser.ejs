@@ -1,21 +1,18 @@
+<!-- views/createUser.ejs -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
     <title><%= title %></title>
-</head>
+  </head>
 <body>
-    <h1><%= title %></h1>
-    <!-- action is the url where data is sent -->
-    <!-- method is the http method to use -->
-    <form action="/create" method="post">
-        <label for="firstName">First Name:</label>
-        <input placeholder="John" type="text" name="firstName" id="firstName">
-        <label for="lastName">Last Name:</label>
-        <input placeholder="Doe" type="text" name="lastName" id="lastName">
-        <button type="submit">Submit</button>
-    </form>
-    <a href="/">Back to home</a>
+  <h1><%= title %></h1>
+  <form action="/create" method="POST">
+    <label for="firstName">First Name: </label>
+    <input type="text" name="firstName" id="firstName" required>
+    <label for="lastName">Last Name: </label>
+    <input type="text" name="lastName" id="lastName" required>
+    <button type="submit">Submit</button>
+  </form>
+  <a href="/">Back to home</a>
 </body>
 </html>
