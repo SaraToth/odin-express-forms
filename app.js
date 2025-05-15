@@ -4,6 +4,8 @@ const usersRouter = require("./routes/usersRouter");
 const { body, validationResult } = require("express-validator");e
 
 app.set("view engine", "ejs");
+
+//Sets form data to req.body:
 app.set(express.urlencoded({ extended: true}));
 app.use("/", usersRouter);
 
