@@ -1,5 +1,5 @@
 const usersStorage = require("../storages/usersStorage");
-const { body, validationResult } = require("express-validator");
+const { body, validationResult, query } = require("express-validator");
 
 const alphaErr = "must only contain letters";
 const lengthErr = "must be between 1 and 10 characters";
@@ -24,7 +24,23 @@ const validateUser = [
     body("bio").trim()
         .optional({ values: "falsy" })
         .isLength({ max: 200 }).withMessage(`Bio ${bioErr}`),
+];
 
+const validateSearch = [
+    query("searchName").trim().notEmpty().withMessage("Search input is required")
+        .custom((value) => {
+            const validator = require("validator");
+
+            if(validator.isEmail(value)) {
+                return true;
+            }
+
+            if (validator.isAlpha(value)) {
+                return true;
+            }
+
+            throw new Error ("Search must be a name or an email");
+        })
 ];
 
 exports.usersListGet = (req, res) => {
@@ -91,30 +107,33 @@ exports.usersDeletePost = (req, res) => {
     res.redirect("/");
 }
 
-exports.usersSearchGet = (req, res) => {
-    const { searchName } = req.query;
-    const users = usersStorage.getUsers();
-    let user;
+exports.usersSearchGet = [
+    validateSearch,
 
-    users.forEach((userData) => {
-        //If user searches by name
-        if ((userData.firstName + " " + userData.lastName) === searchName) {
-            user = userData;
+    (req, res) => {
+        const { searchName } = req.query;
+        const users = usersStorage.getUsers();
+        let user;
+
+        users.forEach((userData) => {
+            //If user searches by name
+            if ((userData.firstName + " " + userData.lastName) === searchName) {
+                user = userData;
+            }
+
+            //If user searches by email
+            if((userData.email) === searchName) {
+                user = userData;
+            }
+        })
+
+        if(user) {
+            res.render("search", {
+                title: "Search Results",
+                user,
+            });
+        } else {
+            res.render("search", { title: "Search Results", message: "No results"});
         }
-
-        //If user searches by email
-        if((userData.email) === searchName) {
-            user = userData;
-        }
-    })
-
-    res.render("search", {
-        title: "Search Results",
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        age: user.age,
-        email: user.email,
-        bio: user.bio,
-    });
-}
+    }
+];
