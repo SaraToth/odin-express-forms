@@ -117,7 +117,7 @@ exports.usersSearchGet = [
 
         users.forEach((userData) => {
             //If user searches by name
-            if ((userData.firstName + " " + userData.lastName) === searchName) {
+            if ((userData.firstName + " " + userData.lastName).toLowerCase() === searchName.toLowerCase()) {
                 user = userData;
             }
 
