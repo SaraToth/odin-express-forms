@@ -8,32 +8,16 @@
 <body>
     <h1><%= title %></h1>
     <p>
-        ID: <%= user.id %><br> 
-        Name: <%= user.firstName %> <%= user.lastName %><br>
-        Email: <%= user.email %><br>
-        <% if (user.age) { %>
-            Age: <%= user.age %><br>
+        ID: <%= id %><br> 
+        Name: <%= firstName %> <%= lastName %><br>
+        Email: <%= email %><br>
+        <% if (age) { %>
+            Age: <%= age %><br>
         <%}%>
-        <% if (user.bio) {%>
-            Bio: <%= user.bio %>
+        <% if (bio) {%>
+            Bio: <%= bio %>
         <%}%>
     </p>
+    <a href="/">Back to home</a>
 </body>
 </html>
-
-
-
-    <ul>
-        <% if (locals.users) { %>
-            <% users.forEach(user => { %>
-                <li>
-                    ID: <%= user.id %><br> 
-                    Name: <%= user.firstName %> <%= user.lastName %><br>
-                    Email: <%= user.email %><br>
-                    <% if (user.age) { %>
-                        Age: <%= user.age %><br>
-                    <%}%>
-                    <% if (user.bio) {%>
-                        Bio: <%= user.bio %>
-                    <%}%>
-                </li>
