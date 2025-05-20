@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 
 const alphaErr = "must only contain letters";
 const lengthErr = "must be between 1 and 10 characters";
+const emailErr = "must use a valid email address";
 
 const validateUser = [
     body("firstName").trim()
@@ -11,6 +12,9 @@ const validateUser = [
     body("lastName").trim()
         .isAlpha().withMessage(`Last name ${alphaErr}`)
         .isLength({ min: 1, max: 10 }).withMessage(`Last name ${lengthErr}`),
+    body("email").trim()
+        .isEmail().withMessage(`Email ${emailErr}`),
+
 ];
 
 exports.usersListGet = (req, res) => {
@@ -38,8 +42,8 @@ exports.usersCreatePost = [
             });
         }
 
-        const { firstName, lastName } = req.body;
-        usersStorage.addUser({ firstName, lastName });
+        const { firstName, lastName, email} = req.body;
+        usersStorage.addUser({ firstName, lastName, email});
         res.redirect("/");
     }
 ];
