@@ -3,13 +3,14 @@ const { body, validationResult } = require("express-validator");
 const usersController = () => {
     return{
         usersCreateGet: (req, res) => {
-            res.send("gets");
+            res.render("createUser", { title: "Create User"});
         },
 
         usersCreatePost: (req, res) => {
-            res.send("posts");
+            res.render("index", { title: "Home" });
         }
     }
 };
+
 
 module.exports = usersController();
