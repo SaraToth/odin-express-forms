@@ -92,5 +92,23 @@ exports.usersDeletePost = (req, res) => {
 }
 
 exports.usersSearchGet = (req, res) => {
-    res.send("yo");
+    const { searchName } = req.query;
+    const users = usersStorage.getUsers();
+    let user;
+
+    users.forEach((userData) => {
+        if ((userData.firstName + " " + userData.lastName) === searchName) {
+            user = userData;
+        }
+    })
+
+    res.render("search", {
+        title: "Search Results",
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        age: user.age,
+        email: user.email,
+        bio: user.bio,
+    });
 }
