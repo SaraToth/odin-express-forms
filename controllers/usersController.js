@@ -71,3 +71,9 @@ exports.usersUpdatePost = [
         res.redirect("/");
     }
 ];
+
+exports.usersDeletePost = (req, res) => {
+    const user = usersStorage.getUser(req.params.id);
+    usersStorage.deleteUser(user);
+    res.redirect("/");
+}
