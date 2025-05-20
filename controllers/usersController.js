@@ -90,3 +90,7 @@ exports.usersDeletePost = (req, res) => {
     usersStorage.deleteUser(req.params.id);
     res.redirect("/");
 }
+
+exports.usersSearchGet = (req, res) => {
+    res.send("yo");
+}
