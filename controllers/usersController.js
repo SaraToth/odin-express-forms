@@ -4,6 +4,9 @@ const { body, validationResult } = require("express-validator");
 const alphaErr = "must only contain letters";
 const lengthErr = "must be between 1 and 10 characters";
 const emailErr = "must use a valid email address";
+const numberErr = "must be a number";
+const ageErr = "must be a valid age and you must be at least 18 years of age";
+const bioErr = "must be no more than 200 characters";
 
 const validateUser = [
     body("firstName").trim()
@@ -14,6 +17,13 @@ const validateUser = [
         .isLength({ min: 1, max: 10 }).withMessage(`Last name ${lengthErr}`),
     body("email").trim()
         .isEmail().withMessage(`Email ${emailErr}`),
+    body("age").trim()
+        .optional({ values: "falsy" })
+        .isNumeric().withMessage(`Age ${numberErr}`)
+        .isInt({ min: 18, max: 120 }).withMessage(`Age ${ageErr}`),
+    body("bio").trim()
+        .optional({ values: "falsy" })
+        .isLength({ max: 200 }).withMessage(`Bio ${bioErr}`),
 
 ];
 
