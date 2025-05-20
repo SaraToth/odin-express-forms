@@ -97,7 +97,13 @@ exports.usersSearchGet = (req, res) => {
     let user;
 
     users.forEach((userData) => {
+        //If user searches by name
         if ((userData.firstName + " " + userData.lastName) === searchName) {
+            user = userData;
+        }
+
+        //If user searches by email
+        if((userData.email) === searchName) {
             user = userData;
         }
     })
