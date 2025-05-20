@@ -8,14 +8,22 @@
 <body>
     <h1><%= title %></h1>
     <p>
-        ID: <%= id %><br> 
-        Name: <%= firstName %> <%= lastName %><br>
-        Email: <%= email %><br>
-        <% if (age) { %>
-            Age: <%= age %><br>
+        <!-- Only attempts to render if user is passed from controller -->
+        <% if (typeof user !== "undefined") {%>
+            ID: <%= user.id %><br>
+            Name: <%= user.firstName %> <%= user.lastName %><br>
+            Email: <%= user.email %><br> 
+            <% if (user.age) { %>
+                Age: <%= user.age %><br>
+            <%}%>
+            <% if (user.bio) {%>
+                Bio: <%= user.bio %>
+            <%}%>
         <%}%>
-        <% if (bio) {%>
-            Bio: <%= bio %>
+
+        <!-- Only attempts to render when message is passed from controller -->
+        <% if (typeof message !== "undefined") {%>
+            <%= message %>
         <%}%>
     </p>
     <a href="/">Back to home</a>
